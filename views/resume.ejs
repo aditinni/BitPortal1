@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Resume Builder</title>
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            width: 100%;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+            text-align: center;
+        }
+
+        .form-section {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .form-section h2 {
+            margin-bottom: 15px;
+            font-size: 18px;
+            color: #333;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .form-group input, 
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .flex-row {
+            display: flex;
+            gap: 15px;
+        }
+
+        .flex-row .form-group {
+            flex: 1;
+        }
+
+        .project-entry, .achievement-entry {
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #eee;
+            border-radius: 5px;
+        }
+
+        .add-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px 12px;
+            margin: 5px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .remove-btn {
+            background-color: #f44336;
+            color: white;
+            padding: 5px 10px;
+            margin-top: 5px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button[type="submit"] {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .tech-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tech-skill-group {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        /* Preview Styles */
+        .preview-container {
+            font-family: 'Times New Roman', Times, serif;
+            padding: 20px;
+            margin-top: 30px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: white;
+        }
+
+        .preview-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .preview-header h2 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .preview-header p {
+            margin: 2px 0;
+        }
+
+        .preview-section {
+            margin-bottom: 15px;
+        }
+
+        .preview-section h3 {
+            font-size: 18px;
+            border-bottom: 1px solid #000;
+            padding-bottom: 3px;
+            margin-bottom: 10px;
+        }
+
+        .preview-education-item {
+            margin-bottom: 10px;
+        }
+
+        .preview-education-item .school {
+            font-weight: bold;
+        }
+
+        .preview-education-item .degree {
+            font-style: italic;
+        }
+
+        .preview-project {
+            margin-bottom: 15px;
+        }
+
+        .preview-project h4 {
+            margin-bottom: 5px;
+        }
+
+        .preview-project ul {
+            padding-left: 20px;
+        }
+        .preview-experience {
+            margin-bottom: 15px;
+        }
+
+        .preview-experience h4 {
+            margin-bottom: 5px;
+        }
+
+        .preview-experience ul {
+            padding-left: 20px;
+        }
+
+        .preview-achievement {
+            margin-bottom: 10px;
+        }
+
+        .contact-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Resume Builder</h1>
+        
+        <form id="resumeForm">
+            <!-- Personal Information -->
+            <div class="form-section">
+                <h2>Personal Information</h2>
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" placeholder='John Doe'required>
+                </div>
+
+                <div class="form-group">
+                    <label for="location">Location</label>
+                    <input type="text" id="location" name="location" placeholder="City, State" required>
+                </div>
+                
+                <div class="flex-row">
+                    <div class="form-group">
+                        <label for="phone">Phone</label>
+                        <input type="tel" id="phone" name="phone" placeholder="+91 XXXXXXXXXX" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="abc@gmail.com" required>
+                    </div>
+                </div>
+                
+                <div class="flex-row">
+                    <div class="form-group">
+                        <label for="linkedin">LinkedIn</label>
+                        <input type="url" id="linkedin" name="linkedin" placeholder="LinkedIn profile URL" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="github">GitHub</label>
+                        <input type="url" id="github" name="github" placeholder="GitHub profile URL">
+                    </div>
+                   
+                    <div class="form-group">
+                        <label for="leetcode">Leetcode</label>
+                        <input type="url" id="leetcode" name="leetcode" placeholder="Leetcode profile URL" required>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Education Section -->
+            <div class="form-section">
+                <h2>Education</h2>
+                
+                <div class="education-entry">
+                    <div class="flex-row">
+                        <div class="form-group">
+                            <label for="college">College/University Name</label>
+                            <input type="text" id="college" name="college" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="college-year">Years</label>
+                            <input type="text" id="college-year" name="college-year" placeholder="20XX - 20XX" required>
+                        </div>
+                    </div>
+                    
+                    <div class="flex-row">
+                        <div class="form-group">
+                            <label for="degree">Degree & Major</label>
+                            <input type="text" id="degree" name="degree" placeholder="B.E. - Computer Science and Engineering" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="cgpa">CGPA</label>
+                            <input type="text" id="cgpa" name="cgpa" placeholder="8.0" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="college-location">Location</label>
+                        <input type="text" id="college-location" name="college-location" placeholder="City, State" required>
+                    </div>
+                </div>
+                
+                <div class="education-entry">
+                    <div class="flex-row">
+                        <div class="form-group">
+                            <label for="school12">Class 12 School </label>
+                            <input type="text" id="school12" name="school12" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="school12-year">Passing Year</label>
+                            <input type="text" id="school12-year" name="school12-year" placeholder="20XX" required>
+                        </div>
+                    </div>
+                    
+                    <div class="flex-row">
+                        <div class="form-group">
+                            <label for="school12-stream">Board</label>
+                            <input type="text" id="school12-stream" name="school12-stream" placeholder="CBSE" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="school12-percentage">Percentage</label>
+                            <input type="text" id="school12-percentage" name="school12-percentage" placeholder="95" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="school12-location">Location</label>
+                        <input type="text" id="school12-location" name="school12-location" placeholder="City, State" required>
+                    </div>
+                </div>
+                
+                <div class="education-entry">
+                    <div class="flex-row">
+                        <div class="form-group">
+                            <label for="school10">Class 10 School Name</label>
+                            <input type="text" id="school10" name="school10" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="school10-year">Passing Year</label>
+                            <input type="text" id="school10-year" name="school10-year" placeholder="20XX" required>
+                        </div>
+                    </div>
+                    
+                    <div class="flex-row">
+                        <div class="form-group">
+                            <label for="school10-board">Board</label>
+                            <input type="text" id="school10-board" name="school10-board" placeholder="CBSE" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="school10-percentage">Percentage</label>
+                            <input type="text" id="school10-percentage" name="school10-percentage" placeholder="92" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="school10-location">Location</label>
+                        <input type="text" id="school10-location" name="school10-location" placeholder="City, State" required>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Technical Skills Section -->
+            <div class="form-section">
+                <h2>Technical Skills</h2>
+                
+                <div class="tech-skills">
+                    <div class="tech-skill-group">
+                        <div class="form-group">
+                            <label for="languages">Programming Languages</label>
+                            <input type="text" id="languages" name="languages" placeholder="C/C++, Java, Python" required>
+                        </div>
+                    </div>
+                    
+                    <div class="tech-skill-group">
+                        <div class="form-group">
+                            <label for="technologies">Technologies/Frameworks</label>
+                            <input type="text" id="technologies" name="technologies" placeholder="HTML/CSS, MySQL, Node.js" required>
+                        </div>
+                    </div>
+                    
+                    <div class="tech-skill-group">
+                        <div class="form-group">
+                            <label for="tools">Developer Tools</label>
+                            <input type="text" id="tools" name="tools" placeholder="VS Code, Git, Docker" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Experience Section -->
+            <div class="form-section">
+                <h2>Experience</h2>
+                <div id="experience-container">
+                  
+                </div>
+                <button type="button" class="add-btn" id="add-experience">+ Add Experience</button>
+            </div>
+            
+            <!-- Projects Section -->
+            <div class="form-section">
+                <h2>Projects</h2>
+                <div id="projects-container">
+                    <!-- Dynamic project entries will be added here -->
+                </div>
+                <button type="button" class="add-btn" id="add-project">+ Add Project</button>
+            </div>
+            
+            <!-- Achievements Section -->
+            <div class="form-section">
+                <h2>Achievements/Certifications</h2>
+                <div id="achievements-container">
+                    <!-- Dynamic achievement entries will be added here -->
+                </div>
+                <button type="button" class="add-btn" id="add-achievement">+ Add Achievement</button>
+            </div>
+            
+            <button type="submit">Generate Resume</button>
+        </form>
+        
+        <div class="preview-container" id="resume-preview" style="display: none;">
+            <!-- Preview content will be generated here -->
+        </div>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script>
+        
+        // Experience template
+        function createExperienceEntry(index) {
+            return `
+                <div class="project-entry" data-index="${index}">
+                    <div class="flex-row">
+                        <div class="form-group">
+                            <label for="exp-company-${index}">Company/Organization Name</label>
+                            <input type="text" id="exp-company-${index}" name="exp-company-${index}" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="exp-duration-${index}">End Date</label>
+                            <input type="date" id="exp-duration-${index}" name="exp-duration-${index}" placeholder='Month-Year'required>
+                        </div>
+                    </div>
+                    
+                    <div class="flex-row">
+                        <div class="form-group">
+                            <label for="exp-position-${index}">Position</label>
+                            <input type="text" id="exp-position-${index}" name="exp-position-${index}" placeholder="Software Developer Intern" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="exp-location-${index}">Location (Remote/On-site)</label>
+                            <input type="text" id="exp-location-${index}" name="exp-location-${index}" placeholder="Bangalore" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="exp-link-${index}">Certificate link</label>
+                        <input type='url' id="exp-link-${index}" name="exp-link-${index}" placeholder='Enter Drive link /Certificate link' required></input>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="exp-desc-${index}">Description (Use Semicolon(;)-separated points)</label>
+                        <textarea id="exp-desc-${index}" name="exp-desc-${index}" rows="3" required></textarea>
+                    </div>
+
+                    
+
+                    
+                    <button type="button" class="remove-btn" onclick="removeEntry(this, 'experience')">Remove Experience</button>
+                </div>
+            `;
+        }
+        document.getElementById('add-experience').addEventListener('click', function() {
+            const container = document.getElementById('experience-container');
+            const index = container.children.length;
+            const experienceHTML = createExperienceEntry(index);
+            const div = document.createElement('div');
+            div.innerHTML = experienceHTML;
+            container.appendChild(div.firstElementChild);
+        });
+
+        // Project template
+        function createProjectEntry(index) {
+            return `
+                <div class="project-entry" data-index="${index}">
+                    <div class="form-group">
+                        <label for="project-title-${index}">Project Title</label>
+                        <input type="text" id="project-title-${index}" name="project-title-${index}" required>
+                    </div>
+                    
+                    <div class="flex-row">
+                        <div class="form-group">
+                            <label for="project-tech-${index}">Technologies Used</label>
+                            <input type="text" id="project-tech-${index}" name="project-tech-${index}" required placeholder="HTML, CSS, JS, Database - MongoDB">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="project-link-${index}">Deployment Link</label>
+                            <input type="url" id="project-link-${index}" name="project-link-${index}" placeholder="https://example.com">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="project-desc-${index}">Project Description (Use Semicolon(;)-separated points)</label>
+                        <textarea id="project-desc-${index}" name="project-desc-${index}" rows="3" placeholder="Enter Project Description" required></textarea>
+                    </div>
+                    
+                    <button type="button" class="remove-btn" onclick="removeEntry(this, 'project')">Remove Project</button>
+                </div>
+            `;
+        }
+        
+          // Add entry event listeners
+          document.getElementById('add-project').addEventListener('click', function() {
+            const container = document.getElementById('projects-container');
+            const index = container.children.length;
+            const projectHTML = createProjectEntry(index);
+            const div = document.createElement('div');
+            div.innerHTML = projectHTML;
+            container.appendChild(div.firstElementChild);
+        });
+
+        // Achievement template
+        function createAchievementEntry(index) {
+            return `
+                <div class="achievement-entry" data-index="${index}">
+                    <div class="flex-row">
+                        <div class="form-group">
+                            <label for="achievement-title-${index}">Achievement/Certification Title</label>
+                            <input type="text" id="achievement-title-${index}" name="achievement-title-${index}" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="achievement-date-${index}">Date</label>
+                            <input type="date" id="achievement-date-${index}" name="achievement-date-${index}" placeholder="" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="achievement-desc-${index}">Achievement/Certification Link </label>
+                        <input type='url' id="achievement-desc-${index}" name="achievement-desc-${index}" placeholder="Add certificate Link">
+                    </div>
+                    
+                    <button type="button" class="remove-btn" onclick="removeEntry(this, 'achievement')">Remove Achievement</button>
+                </div>
+            `;
+        }
+              
+        document.getElementById('add-achievement').addEventListener('click', function() {
+            const container = document.getElementById('achievements-container');
+            const index = container.children.length;
+            const achievementHTML = createAchievementEntry(index);
+            const div = document.createElement('div');
+            div.innerHTML = achievementHTML;
+            container.appendChild(div.firstElementChild);
+        });
+        
+        // Remove entry function
+        function removeEntry(button, type) {
+            const entry = button.parentNode;
+            const container = entry.parentNode;
+            container.removeChild(entry);
+            
+            // Update data-index attributes if needed
+            const entries = container.querySelectorAll(`.${type}-entry`);
+            entries.forEach((entry, index) => {
+                entry.dataset.index = index;
+            });
+        }
+        
+        // Add default entries on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            // Add  project entries by default
+            
+                document.getElementById('add-project').click();
+            
+            
+            // Add  experience entry by default
+            document.getElementById('add-experience').click();
+            
+            // Add  achievement entries by default
+           
+                document.getElementById('add-achievement').click();
+            
+        });
+        
+        // Form submission
+        document.getElementById('resumeForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            // Generate the resume preview
+            const previewContainer = document.getElementById('resume-preview');
+            previewContainer.innerHTML = ''; // Clear previous resume preview
+            previewContainer.style.display = 'block';
+
+            // Remove any previous PDF button
+            const oldPdfBtn = document.getElementById('download-pdf-btn');
+            if (oldPdfBtn) oldPdfBtn.remove();
+
+            
+            // Get form values
+            const name = document.getElementById('name').value;
+            const location = document.getElementById('location').value;
+            const phone = document.getElementById('phone').value;
+            const email = document.getElementById('email').value;
+            const linkedin = document.getElementById('linkedin').value;
+            const github = document.getElementById('github').value;
+            const leetcode = document.getElementById('leetcode').value;
+            
+            // Education values
+            const college = document.getElementById('college').value;
+            const collegeYear = document.getElementById('college-year').value;
+            const degree = document.getElementById('degree').value;
+            const cgpa = document.getElementById('cgpa').value;
+            const collegeLocation = document.getElementById('college-location').value;
+            
+            const school12 = document.getElementById('school12').value;
+            const school12Year = document.getElementById('school12-year').value;
+            const school12Stream = document.getElementById('school12-stream').value;
+            const school12Percentage = document.getElementById('school12-percentage').value;
+            const school12Location = document.getElementById('school12-location').value;
+            
+            const school10 = document.getElementById('school10').value;
+            const school10Year = document.getElementById('school10-year').value;
+            const school10Board = document.getElementById('school10-board').value;
+            const school10Percentage = document.getElementById('school10-percentage').value;
+            const school10Location = document.getElementById('school10-location').value;
+            
+            // Technical skills
+            const languages = document.getElementById('languages').value;
+            const technologies = document.getElementById('technologies').value;
+            const tools = document.getElementById('tools').value;
+            
+            // Generate resume HTML
+            let resumeHTML = `
+                <div class="preview-header">
+                    <h2>${name}</h2>
+                    <p>${location}</p>
+                    <div class="contact-icons">
+                        <span><i class="fa fa-phone"></i> ${phone}</span>
+                        <span><i class="fa fa-envelope"></i> ${email}</span>
+                        ${linkedin ? `<span><a href='${linkedin}' target='_blank' style='color:inherit; text-decoration:none;'> LinkedIn</a></span>` : `${linkedin}`}
+                        ${github ? `<span><a href='${github}' target='_blank' style='color:inherit; text-decoration:none;'> GitHub</a></span>` : `${github}`}
+                        ${leetcode ? `<span><a href='${leetcode}' target='_blank' style='color:inherit; text-decoration:none;'> Leetcode</a></span>` : `${leetcode}`}
+                    </div>
+
+                
+                <div class="preview-section" style="text-align: left;">
+                    <h3>EDUCATION</h3>
+                    <div class="preview-education-item">
+                        <div style="display: flex; justify-content: space-between;">
+                            <span class="school">${college}</span>
+                            <span>${collegeYear}</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <span class="degree">${degree} - CGPA - ${cgpa}</span>
+                            <span>${collegeLocation}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="preview-education-item">
+                        <div style="display: flex; justify-content: space-between;">
+                            <span class="school">${school12}</span>
+                            <span>${school12Year}</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <span class="degree">${school12Stream} - Percentage: ${school12Percentage}</span>
+                            <span>${school12Location}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="preview-education-item">
+                        <div style="display: flex; justify-content: space-between;">
+                            <span class="school">${school10}</span>
+                            <span>${school10Year}</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <span class="degree">${school10Board} - Percentage: ${school10Percentage}</span>
+                            <span>${school10Location}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Projects section
+            resumeHTML += `
+                <div class="preview-section" style="text-align: left;">
+                    <h3>PROJECTS</h3>
+            `;
+            
+            const projectEntries = document.querySelectorAll('.project-entry');
+const seenProjects = new Set(); // to track unique projects
+
+projectEntries.forEach(entry => {
+    const index = entry.dataset.index;
+    const title = document.getElementById(`project-title-${index}`).value.trim();
+    const tech = document.getElementById(`project-tech-${index}`).value.trim();
+    const link = document.getElementById(`project-link-${index}`).value.trim();
+    const desc = document.getElementById(`project-desc-${index}`).value.trim();
+
+    // Skip if title or description is empty
+    if (!title || !desc) return;
+
+    // Optional: Prevent duplicate projects
+    const projectKey = `${title}|${tech}|${desc}`;
+    if (seenProjects.has(projectKey)) return;
+    seenProjects.add(projectKey);
+
+    resumeHTML += `
+        <div class="preview-project">
+            <h4>
+                ${link ? `<a href="${link}" target="_blank" style="color:inherit;text-decoration:none;">${title} | ${tech} <i class='fas fa-external-link-alt'></i></a>` : `${title} | ${tech}`}
+            </h4>
+            <ul>
+                ${desc.split(';').map(point => `<li>${point.trim()}</li>`).join('')}
+            </ul>
+        </div>
+    `;
+});
+
+            
+            resumeHTML += `</div>`;
+            
+            // Technical Skills section
+            resumeHTML += `
+                <div class="preview-section" style="text-align: left;">
+                    <h3>TECHNICAL SKILLS</h3>
+                    <p><strong>Languages:</strong> ${languages}</p>
+                    <p><strong>Technologies/Frameworks:</strong> ${technologies}</p>
+                    <p><strong>Developer Tools:</strong> ${tools}</p>
+                </div>
+            `;
+            
+            // Experience section
+            const experienceEntries = document.querySelectorAll('#experience-container .project-entry');
+            if (experienceEntries.length > 0) {
+                resumeHTML += `
+                    <div class="preview-section" style="text-align: left;">
+                        <h3>EXPERIENCE</h3>
+                `;
+                
+                experienceEntries.forEach(entry => {
+                    const index = entry.dataset.index;
+                    const company = document.getElementById(`exp-company-${index}`).value;
+                    const duration = document.getElementById(`exp-duration-${index}`).value;
+                    const position = document.getElementById(`exp-position-${index}`).value;
+                    const location = document.getElementById(`exp-location-${index}`).value;
+                    const desc = document.getElementById(`exp-desc-${index}`).value;
+                    const certificate = document.getElementById(`exp-link-${index}`).value;
+                    
+                    resumeHTML += `
+                        <div class="preview-project" >
+                            <div style="display: flex; justify-content: space-between;">
+                                <h4 ><a href='${certificate}' style='color:inherit;text-decoration:none;'>${company}</a></h4>
+                                <span>${duration}</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; font-style: italic;">
+                                <span>${position}</span>
+                                <span>${location}</span>
+                            </div>
+                            <ul>
+                                ${desc.split(';').map(point => `<li>${point.trim()}</li>`).join('')}
+                            </ul>
+                        </div>
+                    `;
+                });
+                
+                resumeHTML += `</div>`;
+            }
+            
+            // Achievements section
+            resumeHTML += `
+                <div class="preview-section" style="text-align: left;">
+                    <h3>ACHIEVEMENTS/CERTIFICATIONS</h3>
+            `;
+            
+            const achievementEntries = document.querySelectorAll('.achievement-entry');
+            achievementEntries.forEach(entry => {
+                const index = entry.dataset.index;
+                const title = document.getElementById(`achievement-title-${index}`).value;
+                const date = document.getElementById(`achievement-date-${index}`).value;
+                const desc = document.getElementById(`achievement-desc-${index}`).value;
+                
+                resumeHTML += `
+                            <div class="preview-achievement">
+                <div style="display: flex; justify-content: space-between;">
+                    <span>
+                        ${desc ? `<a href="${desc}" target="_blank" style="color:inherit; text-decoration:none;">${title}</a>` : `${title}`}
+                    </span>
+                    <span>${date}</span>
+                </div>
+            </div>
+
+                `;
+            });
+            
+            resumeHTML += `</div>`;
+            
+            // Add the HTML to the preview container
+            previewContainer.innerHTML = resumeHTML;
+            
+            // Scroll to the preview
+            previewContainer.scrollIntoView({ behavior: 'smooth' });
+            
+            // Generate PDF option
+            const pdfButton = document.createElement('button');
+            pdfButton.id = 'download-pdf-btn';
+
+            pdfButton.textContent = 'Download Resume PDF';
+            pdfButton.style.backgroundColor = '#4CAF50';
+            pdfButton.style.padding = '12px';
+            pdfButton.style.margin = '20px 0';
+            pdfButton.style.width = '100%';
+            pdfButton.style.border = 'none';
+            pdfButton.style.borderRadius = '5px';
+            pdfButton.style.color = 'white';
+            pdfButton.style.cursor = 'pointer';
+            
+            pdfButton.addEventListener('click', function () {
+                const { jsPDF } = window.jspdf;
+                 const pdf = new jsPDF('p', 'pt', 'a4');
+
+                pdf.html(previewContainer, {
+                    callback: function (doc) {
+                        doc.save('Resume.pdf');
+                    },
+                    margin: [20, 20, 20, 20],
+                    autoPaging: 'text',
+                    x: 10,
+                    y: 10,
+                    width: 550, // max width of content on page
+                    windowWidth: previewContainer.scrollWidth // helps with proper rendering
+                });
+            });
+
+            
+            previewContainer.after(pdfButton);
+        });
+    </script>
+</body>
+</html>
