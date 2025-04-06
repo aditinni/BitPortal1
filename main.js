@@ -266,6 +266,14 @@ app.get("/question-paper",  (req,res)=>{
     res.send("Login to access")
   }
 })
+//resume generator
+app.get("/resume",  (req,res)=>{
+  
+  {
+    res.render('resume')
+  }
+ 
+})
 
 
 //adding notice
